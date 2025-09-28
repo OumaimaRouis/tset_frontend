@@ -60,7 +60,9 @@ export default function TripForm({ onTripCreated }: TripFormProps) {
                   value={form.current_location}
                   onChange={handleChange}
                   placeholder="Enter current location"
-                  className="input input-bordered w-full mt-1"
+                  className="w-full mt-1 px-3 py-2 border border-black rounded-md 
+             placeholder-gray-500 text-black
+             focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
               </div>
@@ -75,7 +77,9 @@ export default function TripForm({ onTripCreated }: TripFormProps) {
                   value={form.pickup_location}
                   onChange={handleChange}
                   placeholder="Enter pickup location"
-                  className="input input-bordered w-full mt-1"
+                  className="w-full mt-1 px-3 py-2 border border-black rounded-md 
+             placeholder-gray-500 text-black
+             focus:outline-none focus:ring-2 focus:ring-green-500 "
                   required
                 />
               </div>
@@ -90,7 +94,9 @@ export default function TripForm({ onTripCreated }: TripFormProps) {
                   value={form.dropoff_location}
                   onChange={handleChange}
                   placeholder="Enter dropoff location"
-                  className="input input-bordered w-full mt-1"
+                  className="w-full mt-1 px-3 py-2 border border-black rounded-md 
+             placeholder-gray-500 text-black
+             focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
               </div>
@@ -105,7 +111,9 @@ export default function TripForm({ onTripCreated }: TripFormProps) {
                   value={form.cycle_hours_used}
                   onChange={handleChange}
                   placeholder="Enter cycle hours"
-                  className="input input-bordered w-full mt-1"
+                  className="w-full mt-1 px-3 py-2 border border-black rounded-md 
+             placeholder-gray-500 text-black
+             focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
               </div>
