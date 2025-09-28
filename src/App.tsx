@@ -1,3 +1,8 @@
+import { useState } from "react";
+import axios from "axios";
+import TripForm from "./components/TripForm";
+import MapWithRoute from "./components/TripMap";
+
 interface Trip {
   id: number;
   current_location: string;
@@ -22,21 +27,12 @@ interface LogData {
   }[];
 }
 
-import { useState } from "react";
-import axios from "axios";
-import TripForm from "./components/TripForm";
-import MapWithRoute from "./components/TripMap";
-
 export default function App() {
   const [, setTrip] = useState<Trip | null>(null);
   const [route, setRoute] = useState<RouteData | null>(null);
   const [logs, setLogs] = useState<LogData | null>(null);
 
-  // ✅ Use the environment variable
   const API_URL = import.meta.env.VITE_API_URL;
-console.log("API_URL =", API_URL);
-console.log("ENV:", import.meta.env);
-
 
   const handleTripCreated = async (tripData: Trip) => {
     setTrip(tripData);
@@ -44,7 +40,6 @@ console.log("ENV:", import.meta.env);
     const r = await axios.get<RouteData>(
       `${API_URL}/api/trips/${tripData.id}/route/`
     );
-    console.log("Route response:", r.data);
     setRoute(r.data);
 
     const l = await axios.get<LogData>(
@@ -54,25 +49,32 @@ console.log("ENV:", import.meta.env);
   };
 
   return (
-    <div>
-      <h1>Trip Planner</h1>
-      <TripForm onTripCreated={handleTripCreated} />
+    <div className="min-h-screen p-6 bg-base-200">
+      <div className="max-w-5xl mx-auto space-y-6">
+        <h1 className="text-4xl font-bold text-center mb-6">🚚 Trip Planner</h1>
 
-      {route && (
-        <>
-          <h2>Route Info</h2>
-          <p>Distance: {route.distance_km} km</p>
-          <p>Duration: {route.duration_hours} hrs</p>
-          {route && <MapWithRoute route={route} />}
-        </>
-      )}
+        <div className="card shadow-lg bg-base-100 p-6">
+          <TripForm onTripCreated={handleTripCreated} />
+        </div>
 
-      {logs && (
-        <>
-          <h2>HOS Logs</h2>
-          <pre>{JSON.stringify(logs, null, 2)}</pre>
-        </>
-      )}
+        {route && (
+          <div className="card shadow-lg bg-base-100 p-6 space-y-4">
+            <h2 className="text-2xl font-semibold">📍 Route Info</h2>
+            <p className="text-lg">Distance: <span className="font-bold">{route.distance_km.toFixed(2)} km</span></p>
+            <p className="text-lg">Duration: <span className="font-bold">{route.duration_hours.toFixed(2)} hrs</span></p>
+            <MapWithRoute route={route} />
+          </div>
+        )}
+
+        {logs && (
+          <div className="card shadow-lg bg-base-100 p-6">
+            <h2 className="text-2xl font-semibold mb-2">📝 HOS Logs</h2>
+            <pre className="bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+              {JSON.stringify(logs, null, 2)}
+            </pre>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

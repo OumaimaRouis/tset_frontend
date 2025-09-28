@@ -9,7 +9,7 @@ interface RouteData {
   dropoff: string;
   distance_km: number;
   duration_hours: number;
-  geometry: [number, number][]; // [lat, lng]
+  geometry: [number, number][]; 
 }
 
 interface MapWithRouteProps {
